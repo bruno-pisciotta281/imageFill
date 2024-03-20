@@ -29,11 +29,17 @@
             background-color: #f0f0f0;
         }
 
-        /* Estilos para os elementos de texto sobrepostos */
-        .overlay-text {
-            position: absolute;
-            white-space: pre-wrap;
-        }
+         /* Estilos para os elementos de texto sobrepostos */
+    .overlay-text {
+        position: absolute;
+        white-space: pre-wrap;
+        transform: translate(-50%, -50%); /* Centraliza o texto no ponto especificado */
+    }
+
+    #tituloText {
+        text-align: center; /* Alinha o texto ao centro */
+    }
+
     </style>
 </head>
 <body>
@@ -63,18 +69,23 @@
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
-        // Configurações dos textos (posição X, posição Y, tamanho da fonte, cor, negrito, itálico)
+
+         // Obtém a largura e altura da div left-section em pixels
+        var leftSectionWidth = document.querySelector('.left-section').offsetWidth;
+        var leftSectionHeight = document.querySelector('.left-section').offsetHeight;
+
+       // Configurações dos textos (posição X, posição Y, tamanho da fonte, cor, negrito, itálico)
         var configuracoesTextos = {
-            local: { x: 345, y: 258, fontSize: 15, color: '#fff', bold: true, italic: false },
-            titulo: { x: 350, y: 300, fontSize: 35, color: '#fff', bold: true, italic: false },
-            atividades: { x: 27, y: 400, fontSize: 25, color: '#fff', bold: true, italic: false },
-            requisitos: { x: 27, y: 450, fontSize: 13, color: '#fff', bold: false, italic: false }
-        };
+            local: { x: 70, y: 42.5, fontSize: 10, color: '#fff', bold: true, italic: false },
+            titulo: { x: 73, y: 56, fontSize: 23, color: '#fff', bold: true, italic: false, },
+            atividades: { x: 22, y: 65, fontSize: 15, color: '#fff', bold: true, italic: false },
+            requisitos: { x: 38, y: 75, fontSize: 10, color: '#fff', bold: false, italic: false }
+        };;
 
         function inserirTextos() {
             console.log("Função inserirTextos() chamada.");
 
-            // Obter os valores dos campos de texto
+            // Obter os valores dos campos de texto 
             var local = document.getElementById("local").value;
             var titulo = document.getElementById("titulo").value;
             var atividades = document.getElementById("atividades").value;
@@ -90,8 +101,8 @@
         function atualizarTexto(elementId, texto, configuracao) {
             var elemento = document.getElementById(elementId);
             elemento.textContent = texto;
-            elemento.style.left = configuracao.x + "px";
-            elemento.style.top = configuracao.y + "px";
+            elemento.style.left = configuracao.x + "%";
+            elemento.style.top = configuracao.y + "%";
             elemento.style.fontSize = configuracao.fontSize + "px";
             elemento.style.color = configuracao.color;
             elemento.style.fontWeight = configuracao.bold ? 'bold' : 'normal';
@@ -99,8 +110,8 @@
         }
 
         function baixarImagem() {
-            var imagem = document.getElementById('image');
-            html2canvas(imagem).then(function(canvas) {
+            var container = document.querySelector('.left-section');
+            html2canvas(container).then(function(canvas) {
                 var link = document.createElement("a");
                 document.body.appendChild(link);
                 link.download = 'imagem_com_textos.png';
@@ -109,6 +120,6 @@
                 document.body.removeChild(link);
             });
         }
-</script>
+    </script>
 </body>
 </html>
