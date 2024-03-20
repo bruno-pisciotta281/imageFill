@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Projeto de Marketing</title>
+    <style>
+        body{
+            font-family: "Montserrat", sans-serif; 
+        }
+
+        .container {
+            display: flex;
+            position: relative; /* Adicionamos position: relative; para que os elementos de texto sejam posicionados relativamente a este container */
+        }
+
+        .left-section, .right-section {
+            width: 50%;
+            padding: 20px;
+            position: relative;
+        }
+
+        .left-section {
+            background-color: #f0f0f0;
+        }
+
+        /* Estilos para os elementos de texto sobrepostos */
+        .overlay-text {
+            position: absolute;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <img id="image" src="imgTeste.png" alt="Imagem Base" style="max-width: 100%; max-height: 100%; height: auto;">
+            <!-- Elementos de texto sobrepostos -->
+            <div id="localText" class="overlay-text"></div>
+            <div id="tituloText" class="overlay-text"></div>
+            <div id="atividadesText" class="overlay-text"></div>
+            <div id="requisitosText" class="overlay-text"></div>
+        </div>
+        <div class="right-section">
+            <input type="text" id="local" placeholder="Local da Vaga">
+            <br>
+            <input type="text" id="titulo" placeholder="Título da Vaga">
+            <br>
+            <textarea id="atividades" placeholder="Atividades da Vaga"></textarea>
+            <br>
+            <textarea id="requisitos" placeholder="Requisitos da Vaga"></textarea>
+            <br>
+            <button onclick="inserirTextos()">Inserir Textos na Imagem</button>
+            <br>
+            <button onclick="baixarImagem()">Baixar Imagem</button>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        // Configurações dos textos (posição X, posição Y, tamanho da fonte, cor, negrito, itálico)
+        var configuracoesTextos = {
+            local: { x: 345, y: 258, fontSize: 15, color: '#fff', bold: true, italic: false },
+            titulo: { x: 350, y: 300, fontSize: 35, color: '#fff', bold: true, italic: false },
+            atividades: { x: 27, y: 400, fontSize: 25, color: '#fff', bold: true, italic: false },
+            requisitos: { x: 27, y: 450, fontSize: 13, color: '#fff', bold: false, italic: false }
+        };
+
+        function inserirTextos() {
+            console.log("Função inserirTextos() chamada.");
+
+            // Obter os valores dos campos de texto
+            var local = document.getElementById("local").value;
+            var titulo = document.getElementById("titulo").value;
+            var atividades = document.getElementById("atividades").value;
+            var requisitos = document.getElementById("requisitos").value;
+
+            // Atualizar os elementos de texto sobrepostos com os valores dos campos de texto e as posições calculadas
+            atualizarTexto("localText", local, configuracoesTextos.local);
+            atualizarTexto("tituloText", titulo, configuracoesTextos.titulo);
+            atualizarTexto("atividadesText", atividades, configuracoesTextos.atividades);
+            atualizarTexto("requisitosText", requisitos, configuracoesTextos.requisitos);
+        }
+
+        function atualizarTexto(elementId, texto, configuracao) {
+            var elemento = document.getElementById(elementId);
+            elemento.textContent = texto;
+            elemento.style.left = configuracao.x + "px";
+            elemento.style.top = configuracao.y + "px";
+            elemento.style.fontSize = configuracao.fontSize + "px";
+            elemento.style.color = configuracao.color;
+            elemento.style.fontWeight = configuracao.bold ? 'bold' : 'normal';
+            elemento.style.fontStyle = configuracao.italic ? 'italic' : 'normal';
+        }
+
+        function baixarImagem() {
+            var imagem = document.getElementById('image');
+            html2canvas(imagem).then(function(canvas) {
+                var link = document.createElement("a");
+                document.body.appendChild(link);
+                link.download = 'imagem_com_textos.png';
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+</script>
+</body>
+</html>
