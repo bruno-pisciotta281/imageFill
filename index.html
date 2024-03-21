@@ -26,7 +26,7 @@
         }
 
         .left-section {
-            background-color: #f0f0f0;
+            background-color: transparent;
         }
 
          /* Estilos para os elementos de texto sobrepostos */
@@ -47,11 +47,13 @@
         left: 20%; /* Ajuste a posição horizontal conforme necessário */
         width: 150px; /* Defina a largura da nova imagem conforme necessário */
         height: auto; /* Mantenha a proporção da imagem */
+        z-index: -1;
     }
 
     </style>
 </head>
 <body>
+    <center><h1>Projeto Marketing VagaIA</h1></center>
     <div class="container">
         <div class="left-section">
             <img id="image" src="imgTeste.png" alt="Imagem Base" style="max-width: 100%; max-height: 100%; height: auto;">
@@ -63,15 +65,15 @@
             <div id="requisitosText" class="overlay-text"></div>
 
              <!-- Imagem IA -->
-             <img id="imagemia" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-FlgnQhhjR3KPh6Imu2PmKy6h/user-n1rneKIddIPOZ5eui1YFsqp9/img-5JBOs0DJaYzTlCdALg4eCnhH.png?st=2024-03-20T17%3A51%3A42Z&se=2024-03-20T19%3A51%3A42Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-03-20T01%3A08%3A24Z&ske=2024-03-21T01%3A08%3A24Z&sks=b&skv=2021-08-06&sig=j%2B9oLKAVkiZpWMt3V7xi13ArwHUPDF8s7RCKsyG%2BQHw%3D" alt="">
+             <img id="imagemia" src="ia.png" alt="">
         </div>
         <div class="right-section">
             <input type="text" id="local" placeholder="Local da Vaga">
             <br>
-            <input type="text" id="titulo" placeholder="Título da Vaga">
+           <input type="text" id="titulo" placeholder="Título da Vaga">
             <br>
-            <textarea id="atividades" placeholder="Atividades da Vaga"></textarea>
-            <br>
+             <!--<textarea id="atividades" placeholder="Atividades da Vaga"></textarea>
+            <br>-->
             <textarea id="requisitos" placeholder="Requisitos da Vaga"></textarea>
             <br>
             <button onclick="inserirTextos()">Inserir Textos na Imagem</button>
@@ -91,7 +93,7 @@
         var configuracoesTextos = {
             local: { x: 70, y: 42.5, fontSize: 10, color: '#fff', bold: true, italic: false },
             titulo: { x: 73, y: 56, fontSize: 23, color: '#fff', bold: true, italic: false, },
-            atividades: { x: 22, y: 65, fontSize: 15, color: '#fff', bold: true, italic: false },
+           // atividades: { x: 22, y: 65, fontSize: 15, color: '#fff', bold: true, italic: false },
             requisitos: { x: 38, y: 75, fontSize: 10, color: '#fff', bold: false, italic: false }
         };;
 
@@ -101,13 +103,13 @@
             // Obter os valores dos campos de texto 
             var local = document.getElementById("local").value;
             var titulo = document.getElementById("titulo").value;
-            var atividades = document.getElementById("atividades").value;
+           // var atividades = document.getElementById("atividades").value;
             var requisitos = document.getElementById("requisitos").value;
 
             // Atualizar os elementos de texto sobrepostos com os valores dos campos de texto e as posições calculadas
             atualizarTexto("localText", local, configuracoesTextos.local);
             atualizarTexto("tituloText", titulo, configuracoesTextos.titulo);
-            atualizarTexto("atividadesText", atividades, configuracoesTextos.atividades);
+            // atualizarTexto("atividadesText", atividades, configuracoesTextos.atividades);
             atualizarTexto("requisitosText", requisitos, configuracoesTextos.requisitos);
         }
 
