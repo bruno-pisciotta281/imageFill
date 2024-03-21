@@ -16,7 +16,7 @@
 
         .container {
             display: flex;
-            position: relative; /* Adicionamos position: relative; para que os elementos de texto sejam posicionados relativamente a este container */
+            position: relative;
         }
 
         .left-section, .right-section {
@@ -29,54 +29,51 @@
             background-color: transparent;
         }
 
-         /* Estilos para os elementos de texto sobrepostos */
-    .overlay-text {
-        position: absolute;
-        white-space: pre-wrap;
-        transform: translate(-50%, -50%); /* Centraliza o texto no ponto especificado */
-    }
+        .overlay-text {
+            position: absolute;
+            white-space: pre-wrap;
+            transform: translate(-50%, -50%);
+        }
 
-    #tituloText {
-        text-align: center; /* Alinha o texto ao centro */
-    }
+        #tituloText {
+            text-align: center;
+        }
 
-    /* Estilos para a nova imagem */
-    #imagemia {
-        position: absolute;
-        top: 20%; /* Ajuste a posição vertical conforme necessário */
-        left: 20%; /* Ajuste a posição horizontal conforme necessário */
-        width: 150px; /* Defina a largura da nova imagem conforme necessário */
-        height: auto; /* Mantenha a proporção da imagem */
-        z-index: -1;
-    }
+        #generatedImage {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 150px;
+            height: auto;
+            z-index: -1;
+        }
 
     </style>
 </head>
 <body>
-    <center><h1>Projeto Marketing VagaIA</h1></center>
     <div class="container">
         <div class="left-section">
             <img id="image" src="imgTeste.png" alt="Imagem Base" style="max-width: 100%; max-height: 100%; height: auto;">
 
-            <!-- Elementos de texto sobrepostos -->
             <div id="localText" class="overlay-text"></div>
             <div id="tituloText" class="overlay-text"></div>
             <div id="atividadesText" class="overlay-text"></div>
             <div id="requisitosText" class="overlay-text"></div>
 
-             <!-- Imagem IA -->
-             <img id="imagemia" src="ia.png" alt="">
+            <img id="generatedImage" src="" alt="Imagem IA"> <!-- Adicionado elemento para exibir a imagem gerada -->
         </div>
         <div class="right-section">
             <input type="text" id="local" placeholder="Local da Vaga">
             <br>
-           <input type="text" id="titulo" placeholder="Título da Vaga">
+            <input type="text" id="titulo" placeholder="Título da Vaga">
             <br>
-             <!--<textarea id="atividades" placeholder="Atividades da Vaga"></textarea>
+           <!--<textarea id="atividades" placeholder="Atividades da Vaga"></textarea>
             <br>-->
             <textarea id="requisitos" placeholder="Requisitos da Vaga"></textarea>
             <br>
             <button onclick="inserirTextos()">Inserir Textos na Imagem</button>
+            <br>
+            <button onclick="gerarImagemIA()">Gerar Imagem IA</button> <!-- Botão para gerar a imagem -->
             <br>
             <button onclick="baixarImagem()">Baixar Imagem</button>
         </div>
@@ -84,29 +81,22 @@
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
-
-         // Obtém a largura e altura da div left-section em pixels
         var leftSectionWidth = document.querySelector('.left-section').offsetWidth;
         var leftSectionHeight = document.querySelector('.left-section').offsetHeight;
 
-       // Configurações dos textos (posição X, posição Y, tamanho da fonte, cor, negrito, itálico)
         var configuracoesTextos = {
             local: { x: 70, y: 42.5, fontSize: 10, color: '#fff', bold: true, italic: false },
-            titulo: { x: 73, y: 56, fontSize: 23, color: '#fff', bold: true, italic: false, },
-           // atividades: { x: 22, y: 65, fontSize: 15, color: '#fff', bold: true, italic: false },
+            titulo: { x: 73, y: 56, fontSize: 23, color: '#fff', bold: true, italic: false },
+            atividades: { x: 22, y: 65, fontSize: 15, color: '#fff', bold: true, italic: false },
             requisitos: { x: 38, y: 75, fontSize: 10, color: '#fff', bold: false, italic: false }
-        };;
+        };
 
         function inserirTextos() {
-            console.log("Função inserirTextos() chamada.");
-
-            // Obter os valores dos campos de texto 
             var local = document.getElementById("local").value;
             var titulo = document.getElementById("titulo").value;
-           // var atividades = document.getElementById("atividades").value;
+            // var atividades = document.getElementById("atividades").value;
             var requisitos = document.getElementById("requisitos").value;
 
-            // Atualizar os elementos de texto sobrepostos com os valores dos campos de texto e as posições calculadas
             atualizarTexto("localText", local, configuracoesTextos.local);
             atualizarTexto("tituloText", titulo, configuracoesTextos.titulo);
             // atualizarTexto("atividadesText", atividades, configuracoesTextos.atividades);
@@ -124,17 +114,73 @@
             elemento.style.fontStyle = configuracao.italic ? 'italic' : 'normal';
         }
 
-        function baixarImagem() {
-            var container = document.querySelector('.left-section');
-            html2canvas(container).then(function(canvas) {
-                var link = document.createElement("a");
-                document.body.appendChild(link);
-                link.download = 'imagem_com_textos.png';
-                link.href = canvas.toDataURL("image/png");
-                link.click();
-                document.body.removeChild(link);
+        function gerarImagemIA() {
+            var apiKey = "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"; // Substitua "sua-chave-api" pela sua chave de API do OpenAI
+
+            var titulo = document.getElementById("titulo").value;
+            var requestBody = {
+                "model": "dall-e-3",
+                "prompt": titulo + " generated by DALL-E",
+                "n": 1,
+                "size": "1024x1024"
+            };
+
+            fetch("https://api.openai.com/v1/images/generations", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + apiKey,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Exibir a imagem gerada
+                var generatedImage = document.getElementById("generatedImage");
+                generatedImage.src = data.data[0].url;
+            })
+            .catch(error => {
+                console.error("Erro ao gerar imagem IA:", error);
             });
         }
+
+        function baixarImagem() {
+    var container = document.querySelector('.left-section');
+    var generatedImageUrl = document.getElementById("generatedImage").src;
+
+    // Verifica se a imagem gerada já foi carregada
+    if (generatedImageUrl !== "") {
+        // Cria um novo elemento de imagem para a imagem gerada
+        var generatedImageElement = new Image();
+        generatedImageElement.crossOrigin = "anonymous"; // Permite o download de imagens de outros domínios
+        generatedImageElement.src = generatedImageUrl;
+
+        // Espera a imagem gerada ser carregada
+        generatedImageElement.onload = function() {
+            // Cria um canvas para desenhar a imagem gerada
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+
+            canvas.width = generatedImageElement.width;
+            canvas.height = generatedImageElement.height;
+
+            // Desenha a imagem gerada no canvas
+            context.drawImage(generatedImageElement, 0, 0);
+
+            // Cria um link para fazer o download da imagem gerada
+            var link = document.createElement("a");
+            document.body.appendChild(link);
+            link.download = 'imagem_ia.png';
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            document.body.removeChild(link);
+        };
+    } else {
+        // Se a imagem gerada não foi carregada, exibe uma mensagem de erro
+        alert("A imagem gerada ainda está sendo processada. Aguarde um momento antes de tentar baixar novamente.");
+    }
+}
+
     </script>
 </body>
 </html>
