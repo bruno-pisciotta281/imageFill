@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <title>Projeto de Marketing</title>
     <style>
         body{
@@ -19,14 +21,21 @@
             position: relative;
         }
 
-        .left-section, .right-section {
-            width: 50%;
+        .left-section  {
+            width: 70%;
+            padding: 20px;
+            position: relative;
+        }
+
+        .right-section{
+            width: 30%;
             padding: 20px;
             position: relative;
         }
 
         .left-section {
-            background-color: transparent;
+            background-color: black;
+            border: 8px solid darkgray;
         }
 
         .overlay-text {
@@ -48,33 +57,124 @@
             z-index: -1;
         }
 
+        .social{
+            margin-left: -20px;
+            background-image: linear-gradient(to right, #7cd4ac, #049d70);
+            width: 35%;
+            border-radius: 0 10px 10px 0;
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social i{
+           font-size: 25px;
+        }
+
+        .social p{
+           font-size: 25px;
+        }
+
+        .logo img{
+            width: 50%;
+        }
+
+        .bdr{
+            background-color: transparent;
+            border: 3px solid white;
+            width: 400px;
+            height: 400px;
+            position: relative;
+            left: 0px;
+            top: -205px;
+            border-radius: 20px;
+        }
+
+        .content{
+            background-image: linear-gradient(to right, #7cd4ac, #049d70);  
+            height: 350px;
+            width: 400px;
+            position: relative;
+            bottom: -180px;
+            right: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .content i{
+            font-size: 30px;
+            position: relative;
+            top: 90px;
+            left: 40px;
+        }
+
+        .content h1{
+            font-size: 30px;
+            position: relative;
+            top: 95px;
+            left: 30px;
+            color: white;
+        }
+
+        .content p{
+            font-size: 25px;
+            position: relative;
+            top: 90px;
+            left: 30px;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <div class="left-section">
-            <img id="image" src="imgTeste.png" alt="Imagem Base" style="max-width: 100%; max-height: 100%; height: auto;">
+
+            <br>
+            
+            <div class="social">
+                <p> <i class="fab fa-instagram"></i> <i class="fab fa-facebook"></i> <i class="fab fa-linkedin"></i> novotemporh</p>
+            </div>
+
+            <br>
+
+            <div class="logo">
+                <img src="LogoNVT.png" alt="">
+            </div>
+
+            <br><br>
+
+            <div class="content">
+                <br>
+                <i style="color: white;" class="fa-solid fa-location-dot"></i>
+                <br><br>
+                <i style="color: white;" class="fa-solid fa-magnifying-glass"></i>
+                <br><br>
+
+                <h1>Cadastre-se</h1>
+                <p>www.novotemporh.com.br</p>
+            </div>
+
+            <div class="bdr"></div>
 
             <div id="localText" class="overlay-text"></div>
             <div id="tituloText" class="overlay-text"></div>
             <div id="atividadesText" class="overlay-text"></div>
             <div id="requisitosText" class="overlay-text"></div>
 
-            <img id="generatedImage" src="" alt="Imagem IA"> <!-- Adicionado elemento para exibir a imagem gerada -->
+            <img id="generatedImage" src="" alt="Imagem IA"> 
         </div>
         <div class="right-section">
-            <input type="text" id="local" placeholder="Local da Vaga">
-            <br>
             <input type="text" id="titulo" placeholder="Título da Vaga">
             <br>
-           <!--<textarea id="atividades" placeholder="Atividades da Vaga"></textarea>
-            <br>-->
-            <textarea id="requisitos" placeholder="Requisitos da Vaga"></textarea>
+            <input type="text" id="local" placeholder="Local da Vaga">
+            <br>
+            <textarea id="requisitos" placeholder="Código da Vaga"></textarea>
             <br>
             <button onclick="inserirTextos()">Inserir Textos na Imagem</button>
-            <br>
-            <button onclick="gerarImagemIA()">Gerar Imagem IA</button> <!-- Botão para gerar a imagem -->
-            <br>
+           <!--<textarea id="atividades" placeholder="Atividades da Vaga"></textarea>
+            <br>-->
+            <br><br>
+            <button onclick="gerarImagemIA()">Gerar Imagem IA</button> 
+            <br><br>
             <button onclick="baixarImagem()">Baixar Imagem</button>
         </div>
     </div>
@@ -85,10 +185,10 @@
         var leftSectionHeight = document.querySelector('.left-section').offsetHeight;
 
         var configuracoesTextos = {
-            local: { x: 70, y: 42.5, fontSize: 10, color: '#fff', bold: true, italic: false },
-            titulo: { x: 73, y: 56, fontSize: 23, color: '#fff', bold: true, italic: false },
-            atividades: { x: 22, y: 65, fontSize: 15, color: '#fff', bold: true, italic: false },
-            requisitos: { x: 38, y: 75, fontSize: 10, color: '#fff', bold: false, italic: false }
+            local: { x: 18, y: 53.5, fontSize: 15, color: '#fff', bold: true, italic: false },
+            titulo: { x: 25, y: 48, fontSize: 26, color: '#fff', bold: true, italic: false },
+            atividades: { x: 0, y: 0, fontSize: 15, color: '#fff', bold: true, italic: false },
+            requisitos: { x: 13, y: 58, fontSize: 15, color: '#fff', bold: false, italic: false }
         };
 
         function inserirTextos() {
@@ -114,8 +214,9 @@
             elemento.style.fontStyle = configuracao.italic ? 'italic' : 'normal';
         }
 
-        function gerarImagemIA() {
-          var apiKey = "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"; 
+
+         function gerarImagemIA() {
+            var apiKey = "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"; 
 
             var titulo = document.getElementById("titulo").value;
             var requestBody = {
@@ -138,48 +239,31 @@
                 // Exibir a imagem gerada
                 var generatedImage = document.getElementById("generatedImage");
                 generatedImage.src = data.data[0].url;
+
+                // Definir a imagem como plano de fundo da div left-section
+                var leftSection = document.querySelector('.left-section');
+                leftSection.style.backgroundImage = 'url("' + data.data[0].url + '")';
             })
             .catch(error => {
                 console.error("Erro ao gerar imagem IA:", error);
             });
         }
 
+
+
         function baixarImagem() {
-    var container = document.querySelector('.left-section');
-    var generatedImageUrl = document.getElementById("generatedImage").src;
+            // Seleciona a div left-section
+            var leftSection = document.querySelector('.left-section');
 
-    // Verifica se a imagem gerada já foi carregada
-    if (generatedImageUrl !== "") {
-        // Cria um novo elemento de imagem para a imagem gerada
-        var generatedImageElement = new Image();
-        generatedImageElement.crossOrigin = "anonymous"; // Permite o download de imagens de outros domínios
-        generatedImageElement.src = generatedImageUrl;
-
-        // Espera a imagem gerada ser carregada
-        generatedImageElement.onload = function() {
-            // Cria um canvas para desenhar a imagem gerada
-            var canvas = document.createElement("canvas");
-            var context = canvas.getContext("2d");
-
-            canvas.width = generatedImageElement.width;
-            canvas.height = generatedImageElement.height;
-
-            // Desenha a imagem gerada no canvas
-            context.drawImage(generatedImageElement, 0, 0);
-
-            // Cria um link para fazer o download da imagem gerada
-            var link = document.createElement("a");
-            document.body.appendChild(link);
-            link.download = 'imagem_ia.png';
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-            document.body.removeChild(link);
-        };
-    } else {
-        // Se a imagem gerada não foi carregada, exibe uma mensagem de erro
-        alert("A imagem gerada ainda está sendo processada. Aguarde um momento antes de tentar baixar novamente.");
-    }
-}
+            // Usa html2canvas para criar uma imagem da div left-section
+            html2canvas(leftSection).then(canvas => {
+                // Cria um link para fazer o download da imagem
+                var link = document.createElement('a');
+                link.download = 'left-section.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
 
     </script>
 </body>
