@@ -34,7 +34,8 @@
         }
 
         .left-section {
-            background-color: black;
+            background-color: black; 
+           /* background-image: url(supervisor-de-producao.png); */
             border: 8px solid darkgray;
         }
 
@@ -60,6 +61,7 @@
         .social{
             margin-left: -20px;
             background-image: linear-gradient(to right, #7cd4ac, #049d70);
+            opacity: 0.9;
             width: 35%;
             border-radius: 0 10px 10px 0;
             color: white;
@@ -91,6 +93,7 @@
 
         .content{
             background-image: linear-gradient(to right, #7cd4ac, #049d70);  
+            opacity: 0.9;
             height: 350px;
             width: 400px;
             position: relative;
@@ -185,10 +188,10 @@
         var leftSectionHeight = document.querySelector('.left-section').offsetHeight;
 
         var configuracoesTextos = {
-            local: { x: 18, y: 53.5, fontSize: 15, color: '#fff', bold: true, italic: false },
+            local: { x: 18, y: 55.5, fontSize: 15, color: '#fff', bold: true, italic: false },
             titulo: { x: 25, y: 48, fontSize: 26, color: '#fff', bold: true, italic: false },
             atividades: { x: 0, y: 0, fontSize: 15, color: '#fff', bold: true, italic: false },
-            requisitos: { x: 13, y: 58, fontSize: 15, color: '#fff', bold: false, italic: false }
+            requisitos: { x: 13, y: 60, fontSize: 15, color: '#fff', bold: false, italic: false }
         };
 
         function inserirTextos() {
